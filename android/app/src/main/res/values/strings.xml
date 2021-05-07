@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">manuel Music</string>
+    <string name="title_activity_main">manuel Music</string>
+    <string name="package_name">manuel.music.com</string>
+    <string name="fileprovider_authority">manuel.music.com.fileprovider</string>
+    <string name="custom_url_scheme">manuel.music.com</string>
+</resources>
