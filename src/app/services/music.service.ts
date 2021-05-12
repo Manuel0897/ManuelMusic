@@ -18,4 +18,9 @@ export class MusicService {
       .then(res => res.json())
       .catch(() => dataReleases);
   }
-
+  
+  getArtistsTopTracks(artistId){
+    return fetch(`https://platzi-music-api.herokuapp.com/artists/${artistId}/top-tracks?country=CO`)
+      .then(response=> response.json());
+  }
+}

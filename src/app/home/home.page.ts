@@ -9,7 +9,6 @@ import { SongsModalPage } from '../songs-modal/songs-modal.page';
   styleUrls: ["home.page.scss"]
 })
 export class HomePage {
-  constructor() {}
   slideOps = {
     initialSlide: 2,
     slidesPerView: 4,
@@ -20,6 +19,7 @@ export class HomePage {
   artists: any[] = [];
   songs: any[] = [];
   albums: any[] = [];
+  song: any = {};
   
   constructor(
     private musicService: MusicService,
@@ -34,4 +34,20 @@ export class HomePage {
     })
   }
 
+  async showSongs(artist) {
+    const songs = await this.musicService.getArtistsTopTracks(artist.id);
+    const modal = await this.modalCtrl.create({
+      component: SongsModalPage,
+      componentProps: {
+        songs: songs.tracks,
+        artist: artist.name
+      }
+    });
+
+    modal.onDidDismiss().then(dataReturned => {
+      this.song = dataReturned.data;
+    })
+
+    return await modal.present();
+  }
 }
