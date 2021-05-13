@@ -20,6 +20,8 @@ export class HomePage {
   songs: any[] = [];
   albums: any[] = [];
   song: any = {};
+  currentSong: any = {};
+  newTime: any;
   
   constructor(
     private musicService: MusicService,
@@ -34,20 +36,56 @@ export class HomePage {
     })
   }
 
-  async showSongs(artist) {
-    const songs = await this.musicService.getArtistsTopTracks(artist.id);
+  async showSongs(item, album=false) {
+    const songs = album ? await this.musicService.getAlbumTracks(item.id)
+      : await this.musicService.getArtistsTopTracks(item.id);
     const modal = await this.modalCtrl.create({
       component: SongsModalPage,
       componentProps: {
-        songs: songs.tracks,
-        artist: artist.name
+        songs: album ? songs.items : songs.tracks,
+        title: item.name
       }
     });
 
     modal.onDidDismiss().then(dataReturned => {
-      this.song = dataReturned.data;
+      if (this.currentSong.currentTime && this.song.name) this.pause();
+      this.song = dataReturned.data || {};
+      if (dataReturned && dataReturned.data && dataReturned.data != undefined ) this.play();
     })
 
     return await modal.present();
+  }
+
+  async playSongs(item) {
+    const songs = await this.musicService.getAlbumTracks(item.id);
+    if (this.currentSong.currentTime && this.song.name) this.pause();
+    this.song = songs.items[0] || {};
+    if (songs.items && songs.items[0]) this.play();
+  }
+
+  parseTime(time="0.00") {
+    if (time) {
+      const partTime = parseInt(time.toString().split(".")[0], 10);
+      let minutes = Math.floor(partTime/60).toString();
+      if (minutes.length == 1) minutes = "0" + minutes;
+      let seconds = (partTime % 60).toString()
+      if (seconds.length == 1) seconds = "0" + seconds;
+
+      return minutes + ":" + seconds;
+    }
+  }
+
+  play() {
+    this.currentSong = new Audio(this.song.preview_url);
+    this.currentSong.play();
+    this.currentSong.addEventListener("timeupdate", () => {
+      this.newTime = this.currentSong.currentTime / this.currentSong.duration;
+    });
+    this.song.playing = true;
+  }
+
+  pause() {
+    this.currentSong.pause();
+    this.song.playing = false;
   }
 }
