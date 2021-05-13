@@ -19,8 +19,16 @@ export class HomePage {
   artists: any[] = [];
   songs: any[] = [];
   albums: any[] = [];
-  song: any = {};
-  currentSong: any = {};
+  song: {
+    preview_url: string;
+    playing: boolean;
+    name: string;
+  } = {
+    preview_url: "",
+    playing: false,
+    name: ""
+  };
+  currentSong: HTMLAudioElement;
   newTime: any;
   
   constructor(
@@ -48,7 +56,7 @@ export class HomePage {
     });
 
     modal.onDidDismiss().then(dataReturned => {
-      if (this.currentSong.currentTime && this.song.name) this.pause();
+      if (this.currentSong && this.song.name) this.pause();
       this.song = dataReturned.data || {};
       if (dataReturned && dataReturned.data && dataReturned.data != undefined ) this.play();
     })
@@ -58,12 +66,12 @@ export class HomePage {
 
   async playSongs(item) {
     const songs = await this.musicService.getAlbumTracks(item.id);
-    if (this.currentSong.currentTime && this.song.name) this.pause();
+    if (this.currentSong && this.song.name) this.pause();
     this.song = songs.items[0] || {};
     if (songs.items && songs.items[0]) this.play();
   }
 
-  parseTime(time="0.00") {
+  parseTime(time: number = 0.00) {
     if (time) {
       const partTime = parseInt(time.toString().split(".")[0], 10);
       let minutes = Math.floor(partTime/60).toString();

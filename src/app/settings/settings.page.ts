@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
@@ -7,16 +7,13 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage {
   userImage: string = "https://www.gravatar.com/avatar/4552047320032dbee698dcd282b846c3?d=identicon";
   photo: SafeResourceUrl;
 
   constructor(
     private sanitizer: DomSanitizer
   ) { }
-
-  ngOnInit() {
-  }
 
   async takePhoto() {
     const image = await Plugins.Camera.getPhoto({

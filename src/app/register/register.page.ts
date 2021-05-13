@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authenticate.service';
@@ -8,7 +8,7 @@ import { AuthenticateService } from '../services/authenticate.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
   registerForm: FormGroup;
 
   validation_message = {
@@ -49,9 +49,6 @@ export class RegisterPage implements OnInit {
         Validators.minLength(5)
       ]))
     });
-  }
-
-  ngOnInit() {
   }
 
   goToLogin() {

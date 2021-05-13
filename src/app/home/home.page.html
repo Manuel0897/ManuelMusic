@@ -38,7 +38,7 @@
 
 <ion-footer>
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf="currentSong">
       <ion-col class="ion-text-start">{{ parseTime(currentSong.currentTime) }}</ion-col>
       <ion-col class="ion-text-end">{{ parseTime(currentSong.duration) }}</ion-col>
     </ion-row>
