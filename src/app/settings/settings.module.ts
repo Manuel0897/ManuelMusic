@@ -5,16 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MenuPage } from './menu.page';
+import { SettingsPage } from './settings.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: MenuPage,
-    children: [
-      { path: 'home', loadChildren: () => import('../home/home.module').then( m => m.HomePageModule) },
-      { path: 'settings', loadChildren: () => import('../settings/settings.module').then( m => m.SettingsPageModule) }
-    ]
+    component: SettingsPage
   }
 ];
 
@@ -25,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MenuPage]
+  declarations: [SettingsPage]
 })
-export class MenuPageModule {}
+export class SettingsPageModule {}
