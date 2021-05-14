@@ -24,6 +24,11 @@ export class MenuPage {
     this.menuCtrl.close();
   }
 
+  goToSports() {
+    this.navCtrl.navigateForward('/menu/sports');
+    this.menuCtrl.close();
+  }
+
   goToSettings() {
     this.navCtrl.navigateForward('/menu/settings');
     this.menuCtrl.close();
