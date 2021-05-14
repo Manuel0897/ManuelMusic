@@ -29,4 +29,9 @@ export class MusicService {
     return fetch(`https://platzi-music-api.herokuapp.com/albums/${albumId}/tracks?country=MX`)
       .then(response => response.json());
   }
+
+  searchTracks(query: string) {
+    return fetch(`https://platzi-music-api.herokuapp.com/search?q=${query}&type=track`)
+      .then(response => response.json());
+  }
 }
