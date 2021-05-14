@@ -1,10 +1,10 @@
 <ion-content>
-  <ion-slides pager="true" [options]="slideOpt">
+  <ion-slides pager="true" [options]="slideOps">
     <ion-slide *ngFor="let slide of slides">
       <ion-icon name="close" (click)="finish()"></ion-icon>
-      <div class="imgContainer">
+      <figure text-center>
         <img src="assets/img/logo.png" alt="manuel Music Logo" />
-      </div>
+      </figure>
       <h1>{{ slide.title }}</h1>
       <h2>{{ slide.subTitle }}</h2>
       <p>
