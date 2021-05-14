@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  mapsKeyApi: "AIzaSyBC6d2XJtSvJUApTURJ5iaN1ApQDUBc2R8"
+  mapsKeyApi: "AIzaSyB-FOO6TYtEw7MpSuoRysGuX7k0ojdVBgs"
 };
